@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source parms
+
+for d in processor*; do
+    cp 0/U $d/0/U; cp 0/p $d/0/p
+    test -f $d/constant/flowParms && rm $d/constant/flowParms
+done
+
+echo Running simpleHeleShaw
+mpirun --use-hwthread-cpus -np $nproc simpleHeleShaw > logFlow -parallel
+echo Finished running simpleHeleShaw
+
+cp processor0/constant/flowParms constant/
+for d in processor*; do
+    test -f $d/constant/flowParms && rm $d/constant/flowParms
+done

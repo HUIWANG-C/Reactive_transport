@@ -1,0 +1,10 @@
+#!/bin/bash
+
+setid=13
+caseid=1
+
+buff=70.5
+discr=1.5
+
+scale_xy=2.3e-5
+scale_z=1e0

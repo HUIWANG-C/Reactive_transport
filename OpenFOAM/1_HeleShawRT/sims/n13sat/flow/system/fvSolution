@@ -1,0 +1,109 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+
+    p
+    {
+        solver          GAMG;
+        smoother	GaussSeidel;
+        tolerance       1e-09;
+	relTol          0.01;
+	minIter 	2;
+	maxIter		400;
+    }
+
+/*
+    p
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-08;
+	relTol          0.01;
+	minIter 	    2;
+	maxIter		 400;
+    }
+*/
+
+/*
+    U
+    {
+        solver          smoothSolver;
+        smoother	symGaussSeidel;
+        tolerance       1e-08;
+        relTol          0.01;
+	minIter 	2;
+    }
+*/
+
+
+    U
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-09;
+        relTol          0.01;
+    }
+
+
+}
+
+SIMPLE
+{
+    nNonOrthogonalCorrectors 0;//2
+    //pRefCell        0;
+    //pRefValue       0;
+
+    consistent yes;
+
+    residualControl
+    {
+
+        p               1e-7;
+        U               1e-7;
+    }
+}
+
+relaxationFactors
+{
+    
+/*    {
+        p               0.3;
+    }
+    equations
+    {
+        U               0.7;
+        k               0.7;
+        omega           0.7;
+    }
+*/
+
+    //Relaxation facto tuned for simplec
+
+    
+    fields
+    {
+        p               1;
+    }
+    equations
+    {
+        U               0.99;
+    }
+
+}
+
+// ************************************************************************* //

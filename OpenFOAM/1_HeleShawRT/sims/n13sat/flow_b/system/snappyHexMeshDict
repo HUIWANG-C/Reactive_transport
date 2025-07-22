@@ -1,0 +1,147 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Which of the steps to run
+castellatedMesh true;
+snap            true;
+addLayers       false;
+
+// Geometry
+geometry
+{
+    wallFluidSolid.stl
+    {
+        type triSurfaceMesh;
+        name wallFluidSolid;
+    }
+
+    //wallFluidFluid.stl
+    //{
+    //    type triSurfaceMesh;
+    //    name wallFluidFluid;
+    //}
+}
+
+// STEP I. CASTELLATEDMESH
+castellatedMeshControls
+{
+    // Explicit feature edge refinement
+    features 
+    (
+    );
+
+    // Refinement parameters
+    maxLocalCells 10000000;
+    maxGlobalCells 200000000;
+    minRefinementCells 5;
+    maxLoadUnbalance 0.3;
+    nCellsBetweenLevels 2;
+
+    // Surface based refinement
+    refinementSurfaces
+    {
+        wallFluidSolid
+        {
+            // Surface-wise min and max refinement level
+            level (0 0);
+        }
+    //wallFluidFluid
+    //    {
+    //        // Surface-wise min and max refinement level
+    //        level (0 0);
+    //    }
+    }
+
+    // Resolve sharp angles
+    resolveFeatureAngle 30;
+
+    // Region-wise refinement
+    refinementRegions
+    {
+    }
+
+    // Mesh selection
+    locationInMesh (2010 2590 0);
+    
+   // gapMode     mixed; // inside|outside|mixed; default = mixed
+
+    // Face zone
+    allowFreeStandingZoneFaces false;
+}
+
+// STEP II. SNAPPING
+snapControls
+{
+    nSmoothPatch 3;
+    tolerance 2.0;
+    nSolveIter 30;
+    nRelaxIter 5;
+}
+
+// STEP III. ADDLAYER
+addLayersControls
+{
+    relativeSizes true;
+
+    layers
+    {
+        wallFluidSolid
+        {
+            nSurfaceLayers 2;
+        }
+
+        //wallFluidFluid
+        //{
+        //    nSurfaceLayers 0;
+        //}
+    }
+
+    expansionRatio 1;
+    finalLayerThickness 1;
+    minThickness 0.5;
+
+    nGrow 0;
+
+    // Advanced settings
+    featureAngle 60;
+    slipFeatureAngle 30;
+    nRelaxIter 2;
+  
+    nSmoothSurfaceNormals 1;
+    nSmoothNormals 3;
+    nSmoothThickness 10;
+
+    maxFaceThicknessRatio 0.5;
+    maxThicknessToMedialRatio 0.3;
+    minMedialAxisAngle 90;
+    nBufferCellsNoExtrude 0;
+    nLayerIter 20;
+}
+
+// Generic mesh quality settings
+meshQualityControls
+{
+    #include "meshQualityDict"
+    // Advanced
+    nSmoothScale 4;
+    errorReduction 0.75;
+}
+
+// Merge tolerance. Is fraction of overall bounding box of initial mesh.
+// Note: the write tolerance needs to be higher than this.
+mergeTolerance 1e-5;
+
+// ************************************************************************* //
