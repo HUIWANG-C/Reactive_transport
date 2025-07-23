@@ -1,0 +1,14 @@
+// Properties for n13 Saturated case
+mean_pore_diameter 9.20000000e-04
+mean_velocity 9.88e-06
+water_volume 3.15475944e-03 ?
+area_fluid_solid 1.07235341e+01 ?
+
+domain_boundary_lower_x 3.06666e-05
+domain_boundary_upper_x 0.116008
+delta_X 0.115977
+domain_boundary_lower_y 0.
+domain_boundary_upper_y 0.072956
+delta_Y 0.072956
+domain_boundary_lower_z -0.5
+domain_boundary_upper_z 0.5

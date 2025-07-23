@@ -1,0 +1,5 @@
+inlet	reflecting
+outlet	absorbing
+front	reflecting
+back	reflecting
+wallFluidSolid	reacting

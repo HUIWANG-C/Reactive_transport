@@ -1,0 +1,4 @@
+$HOME/ParticleTrackingOF-main/bin/release/ParticleTrackingOF_parallel_advection_diffusion_surface_decay_2d $HOME/OPTOF/n16/Surface_decay_2d/Particle1e3/Pe1e3 PTOF_n16_NoBuffer_unsat_Da5e-1 Pe_1e3 Da_5e-1 1e-1_1e-3_1e3 fluxweighted moments_breakthrough_mass_position_1e-1 '' '' 0 4 > logs/log.position_Pe_1e3_Da_5e-1 2>&1
+
+/home/huiwang/ParticleTrackingOF-main/bin/release/ParticleTrackingOF_parallel_advection_diffusion_surface_decay_2d /scratch/huiwang/OPTOF_ARC/n13/Surface_decay_2d/Particle1e3/Pe1e3/ PTOF_n13unsat_NoBuf_Da5e-1_Posi Pe_1e3 Da_5e-1 1e-1_1e-3_1e3 fluxweighted moments_breakthrough_mass_position_1e-1 '' '' 0 4 > logs/log.position_Pe_1e3_Da_5e-1 2>&1
+

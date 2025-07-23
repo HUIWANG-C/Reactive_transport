@@ -1,0 +1,7 @@
+advection
+fraction_not_absorbed 1e-3
+linear_step 0. 1e-1
+mass
+position_mean
+position_variance
+absorption_time
